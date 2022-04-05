@@ -10,13 +10,13 @@ type FormData = {
 
 type Github = {
   avatar_url: string;
-  login: string;
+  url: string;
   followers: string;
   location: string;
   name: string;
 };
 
-const CepSearch = () => {
+const GithubSearch = () => {
   const [github, setGithub] = useState<Github>();
 
   const [formData, setFormData] = useState<FormData>({
@@ -68,16 +68,13 @@ const CepSearch = () => {
 
       {github && (
         <div className="container-fluid result-card-container">
-          <img
-            src={github.avatar_url}
-            alt="Foto de perfil"
-          />
+          <img src={github.avatar_url} alt="Foto de perfil" />
           <div className="container-fluid information-card">
             <h2>Informações</h2>
-            <ResultCard title="Perfil" description={github.login} />
-            <ResultCard title="Seguidores" description={github.followers} />
-            <ResultCard title="Localidade" description={github.location} />
-            <ResultCard title="Nome" description={github.name} />
+            <ResultCard title="Perfil" description={github.url} link={true}/>
+            <ResultCard title="Seguidores" description={github.followers} link={false}/>
+            <ResultCard title="Localidade" description={github.location} link={false}/>
+            <ResultCard title="Nome" description={github.name} link={false}/>
           </div>
         </div>
       )}
@@ -85,4 +82,4 @@ const CepSearch = () => {
   );
 };
 
-export default CepSearch;
+export default GithubSearch;
