@@ -5,20 +5,22 @@ import { useState } from 'react';
 import axios from 'axios';
 
 type FormData = {
-  cep: string;
+  login: string;
 };
 
-type Address = {
-  avatar: string;
-  logradouro: string;
-  localidade: string;
+type Github = {
+  avatar_url: string;
+  login: string;
+  followers: string;
+  location: string;
+  name: string;
 };
 
 const CepSearch = () => {
-  const [address, setAddress] = useState<Address>();
+  const [github, setGithub] = useState<Github>();
 
   const [formData, setFormData] = useState<FormData>({
-    cep: '',
+    login: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,13 +34,13 @@ const CepSearch = () => {
     event.preventDefault();
 
     axios
-      .get(`https://viacep.com.br/ws/${formData.cep}/json/`)
+      .get(`https://api.github.com/users/${formData.login}`)
       .then((response) => {
-        setAddress(response.data);
+        setGithub(response.data);
         console.log(response.data);
       })
       .catch((error) => {
-        setAddress(undefined);
+        setGithub(undefined);
         console.log(error);
       });
   };
@@ -51,8 +53,8 @@ const CepSearch = () => {
           <div className="form-container">
             <input
               type="text"
-              name="cep"
-              value={formData.cep}
+              name="login"
+              value={formData.login}
               className="search-input"
               placeholder="Usuário Github"
               onChange={handleChange}
@@ -64,19 +66,18 @@ const CepSearch = () => {
         </form>
       </div>
 
-      {address && (
+      {github && (
         <div className="container-fluid result-card-container">
           <img
-            src="https://avatars.githubusercontent.com/u/13897257?v=4"
+            src={github.avatar_url}
             alt="Foto de perfil"
           />
-          {/* <ResultCard title="Avatar" description={address.avatar} /> */}
           <div className="container-fluid information-card">
             <h2>Informações</h2>
-            <ResultCard title="Perfil" description={address.logradouro} />
-            <ResultCard title="Seguidores" description={address.localidade} />
-            <ResultCard title="Localidade" description={address.localidade} />
-            <ResultCard title="Nome" description={address.localidade} />
+            <ResultCard title="Perfil" description={github.login} />
+            <ResultCard title="Seguidores" description={github.followers} />
+            <ResultCard title="Localidade" description={github.location} />
+            <ResultCard title="Nome" description={github.name} />
           </div>
         </div>
       )}

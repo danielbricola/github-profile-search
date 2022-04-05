@@ -18,7 +18,8 @@
 
 .result-card-container {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 44px 38px;
   background-color: #f5f5f5;
   border-radius: 8px;
@@ -43,7 +44,7 @@
   border-radius: 4px;
   font-size: 16px;
   height: 40px;
-  width: 240px;
+  width: 180px;
   margin-bottom: 25px;
   padding-left: 17px;
 }
@@ -61,6 +62,7 @@
 /* Result Card Informations */
 
 .information-card {
+  margin-top: 30px;
   background-color: #fff;
   border: 1px solid #D9D9D9;
   height: 247px;
@@ -77,13 +79,29 @@
 }
 
 .result-card-container img {
-  width: 247px;
-  height: 247px;
+  width: 147px;
+  height: 147px;
   margin-right: 30px;
 }
 
 @media (min-width: 576px) {
   .search-input {
     width: 315px;
+  }
+
+  .result-card-container img {
+    width: 247px;
+    height: 247px;
+    margin-right: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .result-card-container {
+    flex-direction: row;
+  }
+
+  .information-card {
+    margin: 0;
   }
 }
